@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { blankTrip, putLocalTrip } from "@/lib/store";
-import { CURRENCIES, addDays, todayIso } from "@/lib/util";
+import { blankTrip, putLocalTrip } from "../lib/store";
+import { addDays, CURRENCIES, to, todayIso } from "../lib/util";
 import TripDates from "./TripDates";
 import { Button, Field, Modal, inputCls } from "./ui";
 
@@ -23,7 +23,7 @@ export default function NewTrip({ open, onClose }: { open: boolean; onClose: () 
     const lt = blankTrip({ name, startDate: start, endDate: end, currency, yourName: you });
     putLocalTrip(lt);
     onClose();
-    router.push(`/trips/${lt.trip.id}`);
+    router.push(to(`/trips/${lt.trip.id}`));
   }
 
   return (

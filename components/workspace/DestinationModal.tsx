@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { suggestStopDates, whereEachDay } from "@/lib/places";
-import { updateTrip } from "@/lib/store";
-import type { Destination, Trip } from "@/lib/types";
-import { eachDay } from "@/lib/util";
+import { suggestStopDates, whereEachDay } from "../../lib/places";
+import { updateTrip } from "../../lib/store";
+import type { Destination, Trip } from "../../lib/types";
+import { eachDay } from "../../lib/util";
 import { Icon } from "../icons";
 import { Button, DayPicker, Field, Modal, Segmented, inputCls } from "../ui";
 

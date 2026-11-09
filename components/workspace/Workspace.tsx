@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { cloneAsNew, patchLocal, putLocalTrip, updateTrip, useLocalTrip } from "@/lib/store";
-import { useTripSync, type SyncState } from "@/lib/shareClient";
-import { MEMBER_COLORS, cx, fmtRange, randomId } from "@/lib/util";
+import { cloneAsNew, patchLocal, putLocalTrip, updateTrip, useLocalTrip } from "../../lib/store";
+import { useTripSync, type SyncState } from "../../lib/shareClient";
+import { cx, fmtRange, MEMBER_COLORS, randomId, to } from "../../lib/util";
 import { Icon } from "../icons";
 import { Avatar, Button, Field, Modal, ReadOnlyCtx, inputCls } from "../ui";
 import Overview from "./Overview";
@@ -54,7 +54,7 @@ export default function Workspace() {
         </span>
         <h1 className="mt-5 font-display text-2xl font-bold">Trip not found on this device</h1>
         <p className="mt-2 text-muted">If someone shared it with you, open the link they sent.</p>
-        <Link href="/" className="mt-6 font-medium text-accent hover:underline">
+        <Link href={to("/")} className="mt-6 font-medium text-accent hover:underline">
           Back to your trips
         </Link>
       </div>
@@ -79,7 +79,7 @@ export default function Workspace() {
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-8">
             <div className="flex items-center gap-3 py-3">
               <Link
-                href="/"
+                href={to("/")}
                 aria-label="All trips"
                 className="grid size-10 shrink-0 place-items-center rounded-full border border-line bg-card transition hover:border-ink/40"
               >
@@ -97,7 +97,7 @@ export default function Workspace() {
                 </p>
               </div>
               <Link
-                href={`/trips/${trip.id}/print`}
+                href={to(`/trips/${trip.id}/print`)}
                 className="hidden min-h-11 items-center gap-2 rounded-full border border-line bg-card px-4 text-sm font-semibold transition hover:border-ink/40 sm:inline-flex"
               >
                 <Icon.Printer className="size-[18px]" /> Print
@@ -160,7 +160,7 @@ export default function Workspace() {
                 onClick={() => {
                   const copy = cloneAsNew(trip, " (my copy)");
                   putLocalTrip(copy);
-                  router.push(`/trips/${copy.trip.id}`);
+                  router.push(to(`/trips/${copy.trip.id}`));
                 }}
               >
                 Make my own copy

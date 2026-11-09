@@ -4,8 +4,8 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
 import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-leaflet";
-import type { Destination } from "@/lib/types";
-import { fmtRange } from "@/lib/util";
+import type { Destination } from "../lib/types";
+import { fmtRange } from "../lib/util";
 
 /* OpenStreetMap tiles (free, attribution required). Markers are CSS divIcons, so no image assets. */
 

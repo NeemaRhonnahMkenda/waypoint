@@ -1,11 +1,12 @@
 "use client";
 
+import { to } from "../lib/util";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { fetchShared } from "@/lib/shareClient";
+import { fetchShared } from "../lib/shareClient";
 import { Icon } from "./icons";
-import { findByShareId, getLocalTrip, patchLocal, putLocalTrip } from "@/lib/store";
+import { findByShareId, getLocalTrip, patchLocal, putLocalTrip } from "../lib/store";
 
 /**
  * /t/<shareId>[#k=<editKey>]
@@ -29,7 +30,7 @@ export default function OpenShared() {
         const existing = findByShareId(id);
         if (existing) {
           if (editKey && !existing.share?.editKey) patchLocal(existing.trip.id, { share: { ...existing.share!, editKey } });
-          router.replace(`/trips/${existing.trip.id}`);
+          router.replace(to(`/trips/${existing.trip.id}`));
           return;
         }
         const r = await fetchShared(id);
@@ -39,7 +40,7 @@ export default function OpenShared() {
           trip: { ...r.trip, id: localId },
           share: { id, editKey, version: r.version, syncedAt: new Date().toISOString() },
         });
-        router.replace(`/trips/${localId}`);
+        router.replace(to(`/trips/${localId}`));
       } catch (e) {
         if (alive) setErr(e instanceof Error ? e.message : "Couldn't open this trip");
       }
@@ -58,7 +59,7 @@ export default function OpenShared() {
           </span>
           <h1 className="mt-5 font-display text-2xl font-bold">We couldn&apos;t open that trip</h1>
           <p className="mt-2 text-muted">{err}</p>
-          <Link href="/" className="mt-6 font-medium text-accent hover:underline">
+          <Link href={to("/")} className="mt-6 font-medium text-accent hover:underline">
             Go to Waypoint
           </Link>
         </>

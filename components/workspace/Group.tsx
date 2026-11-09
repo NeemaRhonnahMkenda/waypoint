@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { cloneAsNew, deleteLocalTrip, patchLocal, putLocalTrip, updateTrip } from "@/lib/store";
-import { downloadTrip } from "@/lib/shareClient";
-import type { LocalTrip, Member } from "@/lib/types";
-import { CURRENCIES, MEMBER_COLORS, addDays, daysBetween, fmtRange, randomId } from "@/lib/util";
+import { cloneAsNew, deleteLocalTrip, patchLocal, putLocalTrip, updateTrip } from "../../lib/store";
+import { downloadTrip } from "../../lib/shareClient";
+import type { LocalTrip, Member } from "../../lib/types";
+import { addDays, CURRENCIES, daysBetween, fmtRange, MEMBER_COLORS, randomId, to } from "../../lib/util";
 import { Icon } from "../icons";
 import TripDates from "../TripDates";
 import { Avatar, Button, Card, Field, IconButton, Modal, Pill, SectionTitle, inputCls, useReadOnly } from "../ui";
@@ -254,7 +254,7 @@ export default function Group({ lt, openShare }: { lt: LocalTrip; openShare: () 
               {lt.share ? "View share links" : "Share with your group"}
             </Button>
             <Link
-              href={`/trips/${trip.id}/print`}
+              href={to(`/trips/${trip.id}/print`)}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-line bg-card px-5 text-sm font-semibold transition hover:border-ink/40"
             >
               <Icon.Printer className="size-[18px]" /> Printable itinerary
@@ -266,7 +266,7 @@ export default function Group({ lt, openShare }: { lt: LocalTrip; openShare: () 
               onClick={() => {
                 const copy = cloneAsNew(trip, " (copy)");
                 putLocalTrip(copy);
-                router.push(`/trips/${copy.trip.id}`);
+                router.push(to(`/trips/${copy.trip.id}`));
               }}
             >
               Duplicate trip
@@ -287,7 +287,7 @@ export default function Group({ lt, openShare }: { lt: LocalTrip; openShare: () 
             onClick={() => {
               if (confirm(`Remove "${trip.name}" from this device?`)) {
                 deleteLocalTrip(trip.id);
-                router.push("/");
+                router.push(to("/"));
               }
             }}
           >

@@ -1,11 +1,11 @@
 "use client";
 
 import { Bar, BarChart, CartesianGrid, Cell, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { Balance } from "@/lib/money";
-import { CATEGORIES, CATEGORY_LABEL, type Category } from "@/lib/types";
+import type { Balance } from "../lib/money";
+import { CATEGORIES, CATEGORY_LABEL, type Category } from "../lib/types";
 import { Icon } from "./icons";
 import { CatIcon } from "./ui";
-import { fmtDate, fmtMoney } from "@/lib/util";
+import { fmtDate, fmtMoney } from "../lib/util";
 
 /*
  * Chart rules (from the data-viz method):

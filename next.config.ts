@@ -9,7 +9,16 @@ const basePath = process.env.WAYPOINT_BASE_PATH ?? "/waypoint";
 
 const nextConfig: NextConfig = {
   basePath: basePath || undefined,
-  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  env: {
+    // Standalone: Next's basePath already prefixes <Link>/router paths, so the route prefix is empty.
+    // (The portfolio sets these differently when it embeds Waypoint; see README.)
+    NEXT_PUBLIC_WAYPOINT_BASE: basePath,
+    NEXT_PUBLIC_WAYPOINT_ROUTE_PREFIX: "",
+  },
+  async redirects() {
+    // Visiting the bare domain opens the app instead of a 404.
+    return basePath ? [{ source: "/", destination: basePath, basePath: false, permanent: false }] : [];
+  },
   turbopack: {
     rules: {
       "*.css": {

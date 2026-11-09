@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { balances, currenciesUsed, settleUp, summarise, useRates } from "@/lib/money";
-import { updateTrip } from "@/lib/store";
-import { CATEGORIES, CATEGORY_LABEL, type Category, type Expense, type LocalTrip, type Trip } from "@/lib/types";
-import { cx, fmtDate, fmtMoney } from "@/lib/util";
+import { balances, currenciesUsed, settleUp, summarise, useRates } from "../../lib/money";
+import { updateTrip } from "../../lib/store";
+import { CATEGORIES, CATEGORY_LABEL, type Category, type Expense, type LocalTrip, type Trip } from "../../lib/types";
+import { cx, fmtDate, fmtMoney } from "../../lib/util";
 import { BalanceChart, CategoryBars, SpendByDay } from "../charts";
 import { Icon } from "../icons";
 import { Avatar, Button, Card, CatIcon, Empty, Field, Modal, Segmented, SectionTitle, inputCls, useReadOnly } from "../ui";

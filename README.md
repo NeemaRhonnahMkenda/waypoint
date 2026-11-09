@@ -30,39 +30,37 @@ npm run dev
 Open http://localhost:3000/waypoint (the app lives under `/waypoint`, see below).
 Click **Explore a sample trip** to see every feature with demo data.
 
-## Deploy to Vercel
+## Deploy
 
-1. Push this folder to a GitHub repo, e.g. `waypoint`.
-2. Vercel → **Add New → Project** → import the repo → **Deploy**.
-3. *(Optional, for live group sharing)* In the Vercel project: **Storage → Create → Upstash for Redis**
-   → free plan → connect to this project. It adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`
-   automatically. Redeploy. The Share button now creates live group links.
-4. Check it at `https://<project>.vercel.app/waypoint`.
+See "Live on the portfolio" below. For live group sharing, add **Upstash for Redis**
+(free) to the *portfolio* Vercel project: Storage → Create → Upstash for Redis → connect → redeploy.
 
-### Mount it in the portfolio
+### Live on the portfolio (same deployment, separate repo)
 
-Add this to the portfolio's `content/projects.ts` and push:
+This repo is not deployed on its own. The portfolio
+([neema-portfolio](https://github.com/NeemaRhonnahMkenda/neema-portfolio)) pulls it into
+its build and serves it at `/waypoint`:
 
-```ts
-{
-  slug: "waypoint",
-  title: "Waypoint",
-  summary: "A travel planner for families and friends: shared itineraries, places to stay, budgets and who-owes-whom.",
-  highlights: [
-    "Local-first: trips live in the browser; groups share via edit and view links, no accounts",
-    "Optimistic sync with conflict detection over a Redis key-value store",
-    "Live weather, place search, maps and currency conversion from free public APIs",
-    "Budget charts and fewest-transfers settle-up by person or by family",
-  ],
-  stack: ["Next.js", "TypeScript", "Tailwind", "Upstash Redis", "Leaflet", "Recharts", "Zod"],
-  repoUrl: "https://github.com/NeemaRhonnahMkenda/waypoint",
-  mountUrl: "https://<project>.vercel.app",   // no /waypoint here; the portfolio adds it
-  year: 2026,
-  featured: true,
-},
+```
+push to waypoint/main ──► GitHub Action ──► portfolio deploy hook ──► Vercel builds portfolio
+                                                                        └─ prebuild: git fetch waypoint → vendor/waypoint
 ```
 
-Waypoint is then live at `https://<portfolio>.vercel.app/waypoint`.
+What makes that work in this repo:
+
+- `routes/` holds every page and API handler; `app/` here and `app/waypoint/` in the
+  portfolio are one-line re-exports of them.
+- Imports inside `components/`, `lib/` and `routes/` are relative, so they resolve from either host.
+- `components/Shell.tsx` + `styles/waypoint.css` scope the theme to a `.wp` wrapper;
+  `styles/theme.css` carries the Tailwind tokens a host imports.
+- Paths come from env vars the host sets in its `next.config`:
+  `NEXT_PUBLIC_WAYPOINT_BASE` (API and share links), `NEXT_PUBLIC_WAYPOINT_ROUTE_PREFIX`
+  (page links) and `NEXT_PUBLIC_WAYPOINT_HOME_URL` (optional "Portfolio" back link).
+- `.github/workflows/redeploy-portfolio.yml` triggers the portfolio rebuild (needs the
+  `PORTFOLIO_DEPLOY_HOOK` secret; instructions in the file).
+
+New dependencies added here must also be added to the portfolio's `package.json`.
+Running this repo on its own (`npm run dev`) still works for development.
 
 ## How sharing works (no accounts)
 
@@ -98,7 +96,9 @@ Share with group  →  POST /api/trips  →  { id, editKey }
 ## Project structure
 
 ```
-app/
+routes/                 every page + API handler (re-exported by app/ and by the portfolio)
+styles/                 waypoint.css (scoped .wp theme), theme.css (Tailwind tokens)
+app/                    standalone app: one-line re-exports of routes/
   api/trips/            create, read, update shared trips
   api/status/           is live sharing configured?
   trips/[id]/           trip workspace (+ /print)

@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { searchPlaces, type PlaceHit } from "@/lib/places";
-import { updateTrip } from "@/lib/store";
-import type { Destination, LocalTrip, Stay } from "@/lib/types";
-import { cx, daysBetween, fmtMoney, fmtRange, hostOf, randomId } from "@/lib/util";
+import { searchPlaces, type PlaceHit } from "../../lib/places";
+import { updateTrip } from "../../lib/store";
+import type { Destination, LocalTrip, Stay } from "../../lib/types";
+import { cx, daysBetween, fmtMoney, fmtRange, hostOf, randomId } from "../../lib/util";
 import { Icon } from "../icons";
 import TripMap from "../TripMap";
 import { Button, Card, Empty, IconButton, SectionTitle, inputCls, useReadOnly } from "../ui";

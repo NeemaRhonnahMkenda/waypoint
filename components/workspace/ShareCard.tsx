@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { patchLocal } from "@/lib/store";
-import { downloadTrip, linkOnlyUrl, publishTrip, shareLinks, useSharingAvailable } from "@/lib/shareClient";
-import type { LocalTrip } from "@/lib/types";
+import { patchLocal } from "../../lib/store";
+import { downloadTrip, linkOnlyUrl, publishTrip, shareLinks, useSharingAvailable } from "../../lib/shareClient";
+import type { LocalTrip } from "../../lib/types";
 import { Button, CopyField } from "../ui";
 
 export default function ShareCard({ lt }: { lt: LocalTrip }) {

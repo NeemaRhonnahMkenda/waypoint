@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Destination } from "@/lib/types";
-import { cx } from "@/lib/util";
+import type { Destination } from "../lib/types";
+import { cx } from "../lib/util";
 
 // Leaflet touches `window`, so it only ever loads in the browser.
 const Inner = dynamic(() => import("./TripMapInner"), {

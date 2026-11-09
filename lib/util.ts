@@ -15,7 +15,27 @@ export function randomId(length = 12): string {
   return out.join("");
 }
 
-export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+/*
+ * Waypoint runs two ways:
+ *  - standalone (this repo's own app, Next basePath "/waypoint")
+ *  - embedded in the portfolio app at /waypoint (no basePath there)
+ * The host sets these at build time in its next.config `env`.
+ */
+
+/** Absolute path prefix for raw URLs: fetch() to the API and share links. */
+export const BASE_PATH = process.env.NEXT_PUBLIC_WAYPOINT_BASE ?? "/waypoint";
+
+/** Prefix for <Link> and router paths. Empty when Next's basePath already adds it. */
+export const ROUTE_PREFIX = process.env.NEXT_PUBLIC_WAYPOINT_ROUTE_PREFIX ?? "";
+
+/** Optional "back to portfolio" link shown in Waypoint's header when embedded. */
+export const HOME_URL = process.env.NEXT_PUBLIC_WAYPOINT_HOME_URL ?? "";
+
+/** Build an in-app path: to("/trips/abc") -> "/waypoint/trips/abc" when embedded. */
+export function to(path: string) {
+  if (path === "/") return ROUTE_PREFIX || "/";
+  return ROUTE_PREFIX + path;
+}
 
 /* ---------- dates (all ISO yyyy-mm-dd, treated as UTC to avoid TZ drift) ---------- */
 

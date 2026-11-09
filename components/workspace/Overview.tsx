@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { currenciesUsed, summarise, useRates } from "@/lib/money";
-import { updateTrip } from "@/lib/store";
-import type { LocalTrip } from "@/lib/types";
-import { cx, daysBetween, eachDay, fmtDate, fmtMoney, todayIso } from "@/lib/util";
+import { currenciesUsed, summarise, useRates } from "../../lib/money";
+import { updateTrip } from "../../lib/store";
+import type { LocalTrip } from "../../lib/types";
+import { cx, daysBetween, eachDay, fmtDate, fmtMoney, todayIso } from "../../lib/util";
 import { Icon } from "../icons";
 import TripMap from "../TripMap";
 import { Avatar, Button, Card, CatIcon, Pill, useReadOnly } from "../ui";

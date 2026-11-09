@@ -1,5 +1,1 @@
-import Home from "@/components/Home";
-
-export default function Page() {
-  return <Home />;
-}
+export { default } from "../routes/home";

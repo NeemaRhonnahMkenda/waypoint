@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { cloneAsNew, putLocalTrip, sampleTrip, useTrips } from "@/lib/store";
-import { readTripFile } from "@/lib/shareClient";
-import { cx, daysBetween, fmtRange, todayIso } from "@/lib/util";
+import { cloneAsNew, putLocalTrip, sampleTrip, useTrips } from "../lib/store";
+import { readTripFile } from "../lib/shareClient";
+import { cx, daysBetween, fmtRange, HOME_URL, to, todayIso } from "../lib/util";
 import { Icon, type IconName } from "./icons";
 import NewTrip from "./NewTrip";
 import { AvatarStack, Button, Pill } from "./ui";
@@ -74,7 +74,7 @@ export default function Home() {
   function openSample() {
     const lt = sampleTrip();
     putLocalTrip(lt);
-    router.push(`/trips/${lt.trip.id}`);
+    router.push(to(`/trips/${lt.trip.id}`));
   }
 
   async function importFile(f: File | undefined) {
@@ -83,7 +83,7 @@ export default function Home() {
     try {
       const lt = cloneAsNew(await readTripFile(f));
       putLocalTrip(lt);
-      router.push(`/trips/${lt.trip.id}`);
+      router.push(to(`/trips/${lt.trip.id}`));
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Couldn't import that file");
     }
@@ -93,15 +93,26 @@ export default function Home() {
     <div className="paper-glow flex-1">
       <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-8">
         <header className="flex h-18 items-center justify-between py-4">
-          <Link href="/" className="flex items-center gap-2.5 font-display text-xl font-extrabold tracking-tight">
+          <Link href={to("/")} className="flex items-center gap-2.5 font-display text-xl font-extrabold tracking-tight">
             <span className="grid size-9 place-items-center rounded-xl bg-accent text-accent-ink">
               <Icon.Compass className="size-5" strokeWidth={2.2} />
             </span>
             Waypoint
           </Link>
-          <Button size="sm" variant="primary" icon="Plus" onClick={() => setCreating(true)}>
-            New trip
-          </Button>
+          <div className="flex items-center gap-2">
+            {/* When Waypoint is embedded in the portfolio, offer a way back. */}
+            {HOME_URL ? (
+              <Link
+                href={HOME_URL}
+                className="inline-flex min-h-9 items-center gap-1.5 rounded-full px-3 text-[13px] font-semibold text-muted transition hover:bg-sunk hover:text-ink"
+              >
+                <Icon.ArrowLeft className="size-4" /> Portfolio
+              </Link>
+            ) : null}
+            <Button size="sm" variant="primary" icon="Plus" onClick={() => setCreating(true)}>
+              New trip
+            </Button>
+          </div>
         </header>
 
         <section className="grid items-center gap-6 py-10 sm:py-16 lg:grid-cols-[1.3fr_1fr]">
@@ -174,7 +185,7 @@ export default function Home() {
                 return (
                   <Link
                     key={trip.id}
-                    href={`/trips/${trip.id}`}
+                    href={to(`/trips/${trip.id}`)}
                     className="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-line bg-card p-5 pt-6 transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-accent"
                   >
                     <span className={cx("absolute inset-x-0 top-0 h-1.5", stripe)} aria-hidden />

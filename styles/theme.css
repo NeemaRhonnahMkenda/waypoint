@@ -1,0 +1,31 @@
+/*
+ * Tailwind tokens for Waypoint. Import this into the host's Tailwind entry CSS
+ * (after `@import "tailwindcss"`). Values live in styles/waypoint.css, scoped
+ * to the .wp wrapper, so a host site keeps its own theme everywhere else.
+ */
+
+/* Make Tailwind scan Waypoint's files even when it sits in a gitignored folder
+   (the portfolio fetches it into vendor/ at build time). */
+@source "../components";
+@source "../routes";
+@source "../lib";
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-sky: var(--sky);
+  --color-sky-soft: var(--sky-soft);
+  --color-plum: var(--plum);
+  --color-plum-soft: var(--plum-soft);
+}

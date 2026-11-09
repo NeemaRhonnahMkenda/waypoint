@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { currenciesUsed, summarise, useRates } from "@/lib/money";
-import { destinationOn } from "@/lib/places";
-import { useLocalTrip } from "@/lib/store";
-import { CATEGORIES, CATEGORY_LABEL, type Category } from "@/lib/types";
-import { daysBetween, eachDay, fmtDate, fmtMoney, fmtRange } from "@/lib/util";
+import { currenciesUsed, summarise, useRates } from "../lib/money";
+import { destinationOn } from "../lib/places";
+import { useLocalTrip } from "../lib/store";
+import { CATEGORIES, CATEGORY_LABEL, type Category } from "../lib/types";
+import { daysBetween, eachDay, fmtDate, fmtMoney, fmtRange, to } from "../lib/util";
 
 /** Paper-friendly itinerary. Black on white, no maps, every link printed in full. */
 export default function PrintView() {
@@ -19,7 +19,7 @@ export default function PrintView() {
   if (!trip) {
     return (
       <p className="p-10 text-center">
-        Trip not found. <Link href="/" className="underline">Back</Link>
+        Trip not found. <Link href={to("/")} className="underline">Back</Link>
       </p>
     );
   }
@@ -32,7 +32,7 @@ export default function PrintView() {
   return (
     <div className="min-h-full bg-white text-[#111]">
       <div className="no-print sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-neutral-200 bg-white/95 px-4 py-3 backdrop-blur sm:px-8">
-        <Link href={`/trips/${trip.id}`} className="text-sm font-medium text-neutral-700 hover:underline">
+        <Link href={to(`/trips/${trip.id}`)} className="text-sm font-medium text-neutral-700 hover:underline">
           Back to trip
         </Link>
         <button

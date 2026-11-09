@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useContext, useEffect, useId, useRef, useState } from "react";
-import { weatherLabel, type DayWeather } from "@/lib/places";
-import { CATEGORY_LABEL, type Category, type Member } from "@/lib/types";
-import { addDays, cx, daysBetween, fmtDate, initials } from "@/lib/util";
+import { weatherLabel, type DayWeather } from "../lib/places";
+import { CATEGORY_LABEL, type Category, type Member } from "../lib/types";
+import { addDays, cx, daysBetween, fmtDate, initials } from "../lib/util";
 import { Icon, type IconName } from "./icons";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";

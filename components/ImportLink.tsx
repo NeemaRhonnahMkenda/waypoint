@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSyncExternalStore } from "react";
-import { decodeLinkOnly } from "@/lib/shareClient";
-import { cloneAsNew, putLocalTrip } from "@/lib/store";
-import { fmtRange } from "@/lib/util";
+import { decodeLinkOnly } from "../lib/shareClient";
+import { cloneAsNew, putLocalTrip } from "../lib/store";
+import { fmtRange, to } from "../lib/util";
 import { AvatarStack, Button, Card } from "./ui";
 
 /** /import#d=<compressed trip>: link-only sharing (no server involved). */
@@ -26,7 +26,7 @@ export default function ImportLink() {
       <div className="mx-auto flex max-w-md flex-1 flex-col items-center justify-center px-6 py-24 text-center">
         <h1 className="font-display text-2xl font-semibold">This trip link is incomplete</h1>
         <p className="mt-2 text-muted">It may have been cut off when it was copied. Ask for the link again, or for the trip file.</p>
-        <Link href="/" className="mt-6 font-medium text-accent hover:underline">
+        <Link href={to("/")} className="mt-6 font-medium text-accent hover:underline">
           Go to Waypoint
         </Link>
       </div>
@@ -53,7 +53,7 @@ export default function ImportLink() {
             const lt = cloneAsNew(trip);
             putLocalTrip(lt);
             history.replaceState(null, "", window.location.pathname);
-            router.replace(`/trips/${lt.trip.id}`);
+            router.replace(to(`/trips/${lt.trip.id}`));
           }}
         >
           Save to my trips

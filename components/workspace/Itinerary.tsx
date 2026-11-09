@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { destinationOn, useForecast } from "@/lib/places";
-import type { Activity, LocalTrip, Trip } from "@/lib/types";
-import { cx, eachDay, fmtDate, fmtMoney, hostOf, todayIso } from "@/lib/util";
+import { destinationOn, useForecast } from "../../lib/places";
+import type { Activity, LocalTrip, Trip } from "../../lib/types";
+import { cx, eachDay, fmtDate, fmtMoney, hostOf, todayIso } from "../../lib/util";
 import { Icon } from "../icons";
 import { Button, Card, CatIcon, Empty, IconButton, Pill, SectionTitle, WeatherBadge, useReadOnly } from "../ui";
 import ActivityModal from "./ActivityModal";

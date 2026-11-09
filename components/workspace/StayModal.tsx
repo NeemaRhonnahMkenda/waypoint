@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { whereEachDay } from "@/lib/places";
-import { updateTrip } from "@/lib/store";
-import { safeUrl, type Stay, type Trip } from "@/lib/types";
-import { CURRENCIES, cx, daysBetween, eachDay, hostOf, randomId } from "@/lib/util";
+import { whereEachDay } from "../../lib/places";
+import { updateTrip } from "../../lib/store";
+import { safeUrl, type Stay, type Trip } from "../../lib/types";
+import { CURRENCIES, cx, daysBetween, eachDay, hostOf, randomId } from "../../lib/util";
 import { Icon } from "../icons";
 import { Button, DayPicker, Field, Modal, Segmented, inputCls, stayDays } from "../ui";
 
